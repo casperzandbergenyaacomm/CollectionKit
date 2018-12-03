@@ -26,7 +26,7 @@ open class EmptyCollectionProvider: ItemProvider, CollectionReloadable {
     return "\(at)"
   }
   
-  open func prefetch(visibleFrame: CGRect) {}
+  open func prefetch(outside visibleFrame: CGRect) {}
 
   open var contentSize: CGSize {
     return .zero

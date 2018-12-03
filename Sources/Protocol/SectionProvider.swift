@@ -17,7 +17,7 @@ extension SectionProvider {
   public func flattenedProvider() -> ItemProvider {
     return FlattenedProvider(provider: self)
   }
-  public func prefetch(visibleFrame: CGRect) {
+  public func prefetch(outside visibleFrame: CGRect) {
     // prefetching sections is done in the flattened provider
   }
 }

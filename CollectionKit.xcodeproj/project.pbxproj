@@ -215,6 +215,7 @@
 			children = (
 				B1688A2E1F2563A200C229BD /* Provider.swift */,
 				A3C76C1E20D10817003082BF /* LayoutableProvider.swift */,
+				F675730121B181A800DF5771 /* PrefetchableProvider.swift */,
 				A3C76C2020D1082D003082BF /* SectionProvider.swift */,
 				A3C76C2220D10841003082BF /* ItemProvider.swift */,
 			);
@@ -312,7 +313,6 @@
 		B144CE0B1F437A840073CF4E /* Provider */ = {
 			isa = PBXGroup;
 			children = (
-				F675730121B181A800DF5771 /* PrefetchableProvider.swift */,
 				B148237A1F1E87F60007A7E2 /* BasicProvider.swift */,
 				A3066AAC2176997800467E3C /* BasicProvider+Convenience.swift */,
 				B1E861F81F21520200621BA0 /* ComposedProvider.swift */,

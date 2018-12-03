@@ -158,12 +158,12 @@ open class CollectionView: UIScrollView {
   }
 
   private func _loadCells(forceReload: Bool) {
-    let newIndexes = flattenedProvider.visible(in: visibleFrame).indexes
+    let new = flattenedProvider.visible(in: visibleFrame)
 
     // optimization: we assume that corresponding identifier for each index doesnt change unless forceReload is true.
     guard forceReload ||
-      newIndexes.last != visibleIndexes.last ||
-      newIndexes != visibleIndexes else {
+      new.indexes.last != visibleIndexes.last ||
+      new.indexes != visibleIndexes else {
       return
     }
 
@@ -173,7 +173,7 @@ open class CollectionView: UIScrollView {
     }
 
     var newIdentifierSet = Set<String>()
-    let newIdentifiers: [String] = newIndexes.map { index in
+    let newIdentifiers: [String] = new.indexes.map { index in
       if let identifier = identifierCache[index] {
         newIdentifierSet.insert(identifier)
         return identifier
@@ -206,7 +206,7 @@ open class CollectionView: UIScrollView {
     }
 
     // 2nd pass, insert new views
-    let newCells: [UIView] = zip(newIdentifiers, newIndexes).map { identifier, index in
+    let newCells: [UIView] = zip(newIdentifiers, new.indexes).map { identifier, index in
       if let existingCell = existingIdentifierToCellMap[identifier] {
         return existingCell
       } else {
@@ -218,9 +218,10 @@ open class CollectionView: UIScrollView {
       insertSubview(cell, at: index)
     }
 
-    visibleIndexes = newIndexes
+    visibleIndexes = new.indexes
     visibleIdentifiers = newIdentifiers
     visibleCells = newCells
+    flattenedProvider.prefetch(outside: new.frame)
   }
 
   private func _generateCell(index: Int) -> UIView {

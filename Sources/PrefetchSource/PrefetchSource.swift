@@ -14,8 +14,9 @@ open class PrefetchSource<Data> {
   open func prefetch(context: PrefetchContext) {
     let frames = prefetchFrames(outsideOf: context.visibleFrame, after: context.offsetChange)
     for frame in frames {
-      let indexes = context.visibleIndexes(visibleFrame: frame)
-      let notPrefetched = indexes.filter(prefetchedIndexes.contains)
+      let indexes = context.visibleIndexes(in: frame)
+      let notPrefetched = indexes.filter { !prefetchedIndexes.contains($0) }
+      guard !notPrefetched.isEmpty else { continue }
       let data = notPrefetched.map(context.data(at:)) as! [Data]
       prefetch(indexes: notPrefetched, data: data)
       prefetchedIndexes += notPrefetched
@@ -73,6 +74,6 @@ public class NoPrefetchSource<Data>: PrefetchSource<Data> {
 public protocol PrefetchContext {
   var visibleFrame: CGRect { get }
   var offsetChange: CGPoint { get }
-  func visibleIndexes(visibleFrame: CGRect) -> [Int]
+  func visibleIndexes(in frame: CGRect) -> [Int]
   func data(at: Int) -> Any
 }

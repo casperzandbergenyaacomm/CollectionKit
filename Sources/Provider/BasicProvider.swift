@@ -8,10 +8,9 @@
 
 import UIKit
 
-open class BasicProvider<Data, View: UIView>: ItemProvider, LayoutableProvider, CollectionReloadable {
-  public func prefetch(visibleFrame: CGRect) {}
+open class BasicProvider<Data, View: UIView>: ItemProvider, LayoutableProvider, CollectionReloadable, PrefetchableProvider {
   
-
+  open var prefetchSource: PrefetchSource<Data>
   open var identifier: String?
   open var dataSource: DataSource<Data> { didSet { setNeedsReload() } }
   open var viewSource: ViewSource<Data, View> { didSet { setNeedsReload() } }
@@ -38,18 +37,30 @@ open class BasicProvider<Data, View: UIView>: ItemProvider, LayoutableProvider, 
 
   public init(identifier: String? = nil,
               dataSource: DataSource<Data>,
+              prefetchSource: PrefetchSource<Data> = NoPrefetchSource(),
               viewSource: ViewSource<Data, View>,
               sizeSource: SizeSource<Data> = SizeSource<Data>(),
               layout: Layout = FlowLayout(),
               animator: Animator? = nil,
               tapHandler: TapHandler? = nil) {
     self.dataSource = dataSource
+    self.prefetchSource = prefetchSource
     self.viewSource = viewSource
     self.layout = layout
     self.sizeSource = sizeSource
     self.animator = animator
     self.tapHandler = tapHandler
     self.identifier = identifier
+  }
+  
+  private var lastPrefetchedFrame: CGRect?
+  open func prefetchContext(visibleFrame: CGRect) -> PrefetchContext {
+    let context = BasicProviderPrefetchContext(visibleFrame: visibleFrame,
+                                               lastVisibleFrame: lastPrefetchedFrame,
+                                               dataSource: dataSource,
+                                               layout: layout)
+    lastPrefetchedFrame = visibleFrame
+    return context
   }
 
   open var numberOfItems: Int {
@@ -99,5 +110,39 @@ struct BasicProviderLayoutContext<Data>: LayoutContext {
   }
   func size(at index: Int, collectionSize: CGSize) -> CGSize {
     return sizeSource.size(at: index, data: dataSource.data(at: index), collectionSize: collectionSize)
+  }
+}
+
+struct BasicProviderPrefetchContext<Data>: PrefetchContext {
+  var visibleFrame: CGRect
+  var lastVisibleFrame: CGRect?
+  var dataSource: DataSource<Data>
+  var layout: Layout
+  
+  var offsetChange: CGPoint {
+    guard let last = lastVisibleFrame else {
+      return .zero
+    }
+    
+    var offset = CGPoint.zero
+    if visibleFrame.width == last.width {
+      offset.x = visibleFrame.minX - last.minX
+    } else if visibleFrame.minX == last.minX {
+      offset.x = visibleFrame.width - last.width
+    }
+    if visibleFrame.height == last.height {
+      offset.y = visibleFrame.minY - last.minY
+    } else if visibleFrame.minY == last.minY {
+      offset.y = visibleFrame.height - last.height
+    }
+    return offset
+  }
+  
+  func visibleIndexes(in frame: CGRect) -> [Int] {
+    return layout.visible(in: visibleFrame).indexes
+  }
+  
+  func data(at: Int) -> Any {
+    return dataSource.data(at: at)
   }
 }

@@ -108,13 +108,14 @@ struct FlattenedProvider: ItemProvider {
       let child = childSections[index]
       let childVisible = child.sectionData?.visible(in: visibleFrameForCell)
       let childIndexes = childVisible?.indexes ?? [0]
+      child.sectionData?.prefetch(outside: childVisible?.frame ?? .zero)
       return childIndexes.map { $0 + child.beginIndex }
     }
     return (indexes, visible.frame)
   }
   
-  public func prefetch(visibleFrame: CGRect) {
-    // we handle prefetch per section in visibleIndexes
+  public func prefetch(outside visibleFrame: CGRect) {
+    // we handle prefetch per section in visible(in)
   }
 
   func frame(at: Int) -> CGRect {
