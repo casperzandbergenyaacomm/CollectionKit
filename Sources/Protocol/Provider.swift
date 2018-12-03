@@ -14,6 +14,7 @@ public protocol Provider {
   // data
   var numberOfItems: Int { get }
   func identifier(at: Int) -> String
+  func prefetch(visibleFrame: CGRect)
 
   // layout
   func layout(collectionSize: CGSize)

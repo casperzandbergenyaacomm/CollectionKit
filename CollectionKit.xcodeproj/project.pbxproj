@@ -67,6 +67,8 @@
 		B1E861F91F21520200621BA0 /* ComposedProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E861F81F21520200621BA0 /* ComposedProvider.swift */; };
 		B1ED75B51F58C95200CB772A /* StickyLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ED75B41F58C95200CB772A /* StickyLayout.swift */; };
 		E7734B091C2A8AF2D7C94E40 /* Pods_CollectionKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18407FD826F3703406A838D4 /* Pods_CollectionKitTests.framework */; };
+		F675730221B181A900DF5771 /* PrefetchableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F675730121B181A800DF5771 /* PrefetchableProvider.swift */; };
+		F675730421B1821800DF5771 /* PrefetchSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F675730321B1821800DF5771 /* PrefetchSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +151,8 @@
 		B1E861F51F21518700621BA0 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		B1E861F81F21520200621BA0 /* ComposedProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposedProvider.swift; sourceTree = "<group>"; };
 		B1ED75B41F58C95200CB772A /* StickyLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyLayout.swift; sourceTree = "<group>"; };
+		F675730121B181A800DF5771 /* PrefetchableProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefetchableProvider.swift; sourceTree = "<group>"; };
+		F675730321B1821800DF5771 /* PrefetchSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefetchSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +228,7 @@
 				A3C76C2420D10853003082BF /* Protocol */,
 				B144CE0B1F437A840073CF4E /* Provider */,
 				B144CE071F437A330073CF4E /* Layout */,
+				F675730521B1821E00DF5771 /* PrefetchSource */,
 				B144CE1A1F437B470073CF4E /* DataSource */,
 				B144CE191F437B2C0073CF4E /* ViewSource */,
 				A39C84962177BF35002084AD /* SizeSource */,
@@ -307,6 +312,7 @@
 		B144CE0B1F437A840073CF4E /* Provider */ = {
 			isa = PBXGroup;
 			children = (
+				F675730121B181A800DF5771 /* PrefetchableProvider.swift */,
 				B148237A1F1E87F60007A7E2 /* BasicProvider.swift */,
 				A3066AAC2176997800467E3C /* BasicProvider+Convenience.swift */,
 				B1E861F81F21520200621BA0 /* ComposedProvider.swift */,
@@ -366,6 +372,14 @@
 			);
 			path = CollectionKitTests;
 			sourceTree = SOURCE_ROOT;
+		};
+		F675730521B1821E00DF5771 /* PrefetchSource */ = {
+			isa = PBXGroup;
+			children = (
+				F675730321B1821800DF5771 /* PrefetchSource.swift */,
+			);
+			path = PrefetchSource;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -560,6 +574,7 @@
 				B183C1221F634A3200CEAAE1 /* TransposeLayout.swift in Sources */,
 				A3C76C1820CFBE2E003082BF /* Deprecated.swift in Sources */,
 				B144CE041F437A100073CF4E /* FlowLayout.swift in Sources */,
+				F675730421B1821800DF5771 /* PrefetchSource.swift in Sources */,
 				A3C76C2B20D507E2003082BF /* ScaleAnimator.swift in Sources */,
 				B10A06281F20073C00069E17 /* Animator.swift in Sources */,
 				A363C56C20CACA8A009A885F /* FlattenedProvider.swift in Sources */,
@@ -571,6 +586,7 @@
 				B144CE061F437A1D0073CF4E /* RowLayout.swift in Sources */,
 				B19D64C91F23DCA800D02FDB /* CollectionReuseViewManager.swift in Sources */,
 				A3C76C2920D507D6003082BF /* FadeAnimator.swift in Sources */,
+				F675730221B181A900DF5771 /* PrefetchableProvider.swift in Sources */,
 				A3C76C2320D10841003082BF /* ItemProvider.swift in Sources */,
 				B144CE001F4379DA0073CF4E /* ClosureLayout.swift in Sources */,
 				B1E861F11F21515F00621BA0 /* ViewSource.swift in Sources */,

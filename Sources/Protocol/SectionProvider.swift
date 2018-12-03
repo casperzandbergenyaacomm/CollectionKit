@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public protocol SectionProvider: Provider {
   func section(at: Int) -> Provider?
@@ -15,5 +16,8 @@ public protocol SectionProvider: Provider {
 extension SectionProvider {
   public func flattenedProvider() -> ItemProvider {
     return FlattenedProvider(provider: self)
+  }
+  public func prefetch(visibleFrame: CGRect) {
+    // prefetching sections is done in the flattened provider
   }
 }

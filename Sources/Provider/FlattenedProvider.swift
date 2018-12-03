@@ -102,6 +102,10 @@ struct FlattenedProvider: ItemProvider {
     }
     return visible
   }
+  
+  public func prefetch(visibleFrame: CGRect) {
+    // we handle prefetch per section in visibleIndexes
+  }
 
   func frame(at: Int) -> CGRect {
     let (sectionIndex, item) = indexPath(at)

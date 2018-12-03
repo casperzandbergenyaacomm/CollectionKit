@@ -9,6 +9,8 @@
 import UIKit
 
 open class BasicProvider<Data, View: UIView>: ItemProvider, LayoutableProvider, CollectionReloadable {
+  public func prefetch(visibleFrame: CGRect) {}
+  
 
   open var identifier: String?
   open var dataSource: DataSource<Data> { didSet { setNeedsReload() } }

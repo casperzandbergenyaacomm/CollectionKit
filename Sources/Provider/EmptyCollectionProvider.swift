@@ -25,6 +25,8 @@ open class EmptyCollectionProvider: ItemProvider, CollectionReloadable {
   open func identifier(at: Int) -> String {
     return "\(at)"
   }
+  
+  open func prefetch(visibleFrame: CGRect) {}
 
   open var contentSize: CGSize {
     return .zero
